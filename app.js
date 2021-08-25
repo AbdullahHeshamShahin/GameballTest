@@ -61,7 +61,15 @@ app.use(function (err, req, res, next) {
     error: err.errors ? JSON.stringify(err.errors, null, 4) : err.stack
   });
 });
+let SIGNATURE_KEY=XXii5DLKG-sFoxbR2qhnSw;
+exports.webhookFunction = async (event) => {
+ 
+  console.log(event.body)
+  };
 
+ 
+
+      const requestBody = JSON.parse(event.body);
 
 
 module.exports = app;
