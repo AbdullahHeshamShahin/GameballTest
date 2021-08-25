@@ -69,7 +69,5 @@ exports.webhookFunction = async (event) => {
 
  
 
-      const requestBody = JSON.parse(event.body);
-
 
 module.exports = app;
