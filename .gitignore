@@ -1,2 +1,4 @@
 
-GameballTest2/
+node_modules
+.env
+.env.examples
