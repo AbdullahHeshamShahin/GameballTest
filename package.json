@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "start": "NODE_ENV=production nodemon -e js,pug ./bin/www",
-    "test": "NODE_ENV=sandbox nodemon -e js,pug ./bin/www",
+    "test": "NODE_ENV=production nodemon -e js,pug ./bin/www",
+    "start": "NODE_ENV=sandbox nodemon -e js,pug ./bin/www",
     "seed": "NODE_ENV=sandbox node ./bin/script/seed-data.js generate",
     "clear": "NODE_ENV=sandbox node ./bin/script/seed-data.js clear",
     "help": "NODE_ENV=sandbox node ./bin/script/seed-data.js --help"
