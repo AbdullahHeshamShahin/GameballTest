@@ -44,28 +44,8 @@ router.use("/subscription", subscriptionRoute);
 router.get("/", async (req, res, next) => {
 
   try {
-    // Retrieve the main location which is the very first location merchant has
-    const { result : { location } } = await locationsApi.retrieveLocation("main");
-    // Retrieves customers for this current merchant
-    let { result: { customers } } = await customersApi.listCustomers();
-    // Subscriptions API should work with the customers that have an email.
-    customers = customers ? customers.filter(customer => customer.emailAddress) : [];
 
-    if (customers.length === 0) {
-      // throw error to remind the possible issue
-      throw new Error("No valid customer retreived, this example only works with customers that have email information.");
-    }
-
-    // Render the customer list homepage
-    res.render("index", {
-      locationId: location.id, // use the main location as the default
-      customers,
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-const crypto = require('crypto');
+    const crypto = require('crypto');
 // The notification URL
 const NOTIFICATION_URL = 'https://rocky-island-32652.herokuapp.com/';
 
@@ -89,4 +69,27 @@ return {
   // return request.get('X-Square-Signature') === hash;
 }
 console.log("balabizo 2")
+
+    // Retrieve the main location which is the very first location merchant has
+    const { result : { location } } = await locationsApi.retrieveLocation("main");
+    // Retrieves customers for this current merchant
+    let { result: { customers } } = await customersApi.listCustomers();
+    // Subscriptions API should work with the customers that have an email.
+    customers = customers ? customers.filter(customer => customer.emailAddress) : [];
+
+    if (customers.length === 0) {
+      // throw error to remind the possible issue
+      throw new Error("No valid customer retreived, this example only works with customers that have email information.");
+    }
+
+    // Render the customer list homepage
+    res.render("index", {
+      locationId: location.id, // use the main location as the default
+      customers,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+
 module.exports = router;
