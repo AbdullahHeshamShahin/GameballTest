@@ -19,7 +19,16 @@ const express = require("express");
 
 const router = express.Router();
 
-
+router.post('/', express.json({type: 'application/json'}), (request, response) => {
+    const event = request.body;
+  
+    // Handle the event
+    res.status(200).send('ok')
+  
+    // Return a response to acknowledge receipt of the event
+    // response.json({received: true});
+  
+  });
 /**
  * Matches: GET /subscription/view/:locationId/:customerId/:subscriptionPlanId
  *
