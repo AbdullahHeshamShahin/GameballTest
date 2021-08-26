@@ -135,10 +135,10 @@ var appRouter = function(app) {
      * Note: Queue processing happens asynchronously
      */
 
-    router.post('/webhooks', function(req, res) {
-
+    router.post('/', function(req, res) {
+      console.log("pleeeassssseeeeeeee help")
 		var payload = JSON.stringify(req.body);
-		var signature = req.get('XXii5DLKG-sFoxbR2qhnSw')
+		var signature = req.get('intuit-signature')
 
 		// if signature is empty return 401
 		if (!signature) {
