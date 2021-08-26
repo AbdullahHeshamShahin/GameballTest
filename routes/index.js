@@ -13,7 +13,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
+const { createHmac } = require('crypto');
 const express = require("express");
 const managementRoute = require("./management");
 const subscriptionRoute = require("./subscription");
@@ -35,6 +35,58 @@ const router = express.Router();
 router.use("/management", managementRoute);
 router.use("/subscription", subscriptionRoute);
 
+
+
+exports.webhookFunction = async (event) => {
+  
+  const hmac = createHmac('sha1', 'XXii5DLKG-sFoxbR2qhnSw');
+  const requestUrl = `https://${
+      event.requestContext.domainName + event.requestContext.path
+  }`;
+
+  try {
+      console.info('Event Info: ', event);
+
+      hmac.update(requestUrl+event.body);
+      const hash = hmac.digest('base64');
+
+      // Check if we have a valid webhook event
+      if(hash !== event.headers['x-square-signature']) {
+          // We have an invalid webhook event.
+          // Logging and stopping processing.
+          console.error(`Mismatched request signature, ${
+              hash
+          } !== ${
+              event.headers['x-square-signature']
+          }`)
+          throw new Error(`Mismatched request signature`);
+      }
+
+      const requestBody = JSON.parse(event.body);
+      // Storing the webhook event data to process later
+      
+
+    // Signal back to Square the event was received
+    return {
+        'statusCode': 200,
+        'body': "ok"
+    }
+} catch (err) {
+    console.error(err);
+
+    return {
+        'statusCode': 403,
+        'headers': {
+            'Content-Type': 'application/json'
+        },
+        'body': JSON.stringify({
+            message: err.message
+        })
+    };
+}
+
+};
+      // Storing the webhook event data to process la
 /**
  * Matches: GET /
  *
@@ -45,30 +97,7 @@ router.get("/", async (req, res, next) => {
 
   try {
 
-    const crypto = require('crypto');
-// The notification URL
-const NOTIFICATION_URL = 'https://rocky-island-32652.herokuapp.com/';
-
-// event notification subscription signature key (sigKey) defined in 
-// dev portal for app
-// Note: Signature key is truncated for illustration
-const sigKey = 'XXii5DLKG-sFoxbR2qhnSw';
-
-console.log("balabizo 1")
-function isFromSquare(NOTIFICATION_URL, request, sigKey) {
-  const hmac = crypto.createHmac('sha1', sigKey);
-  hmac.update(NOTIFICATION_URL + JSON.stringify(request.body));
-  const hash = hmac.digest('base64');
-for(let i=0;i<10;i++){
-  console.log("karim tofa7a")
-}
-return {
-  'statusCode': 200,
-  'body': "ok"
-}
-  // return request.get('X-Square-Signature') === hash;
-}
-console.log("balabizo 2")
+  
 
     // Retrieve the main location which is the very first location merchant has
     const { result : { location } } = await locationsApi.retrieveLocation("main");
