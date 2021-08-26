@@ -82,7 +82,7 @@ var appRouter = function(app) {
 	app.post('/webhooks', function(req, res) {
 
 		var payload = JSON.stringify(req.body);
-		var signature = req.get('intuit-signature')
+		var signature = req.get('XXii5DLKG-sFoxbR2qhnSw')
 
 		// if signature is empty return 401
 		if (!signature) {
