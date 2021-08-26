@@ -74,17 +74,5 @@ const NOTIFICATION_URL = 'https://rocky-island-32652.herokuapp.com/';
 // Note: Signature key is truncated for illustration
 const sigKey = 'XXii5DLKG-sFoxbR2qhnSw';
 
-function isFromSquare(NOTIFICATION_URL, request, sigKey) {
-  const hmac = crypto.createHmac('sha1', sigKey);
-  hmac.update(NOTIFICATION_URL + JSON.stringify(request.body));
-  const hash = hmac.digest('base64');
-for(let i=0;i<10;i++){
-  console.log("karim tofa7a")
-}
-return {
-  'statusCode': 200,
-  'body': "ok"
-}
-  // return request.get('X-Square-Signature') === hash;
-}
+
 module.exports = router;
