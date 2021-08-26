@@ -49,35 +49,6 @@ const router = express.Router();
  *  locationId: Id of the location that the order belongs to
  *  idempotencyKey: Unique identifier for request from client
  */
-router.post('/', function(req, res) {
-    console.log("pleeeassssseeeeeeee help")
-      var payload = JSON.stringify(req.body);
-      var signature = req.get("intuit-signature")
-      return res.status(200).send('success');
-      // if signature is empty return 401
-      if (!signature) {
-          return res.status(401).send('FORBIDDEN');
-      }
-
-      // if payload is empty, don't do anything
-      if (!payload) {
-          return res.status(200).send('success');
-      }
-      
-      // validate signature
-      if (util.isValidPayload(signature, payload)) {
-
-          // add to queue
-          console.log('task added to queue ');
-      
-          return res.status(200).send('success');
-      } else {
-          return res.status(401).send('FORBIDDEN');
-      }
-
-  });
-
-
 
 
 
