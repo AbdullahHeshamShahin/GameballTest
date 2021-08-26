@@ -35,7 +35,7 @@ const router = express.Router();
  */
 router.use("/management", managementRoute);
 router.use("/subscription", subscriptionRoute);
-router.use("/customer", subscriptionRoute);
+router.use("/customer", customer);
 
 
 
