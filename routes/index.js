@@ -65,5 +65,22 @@ router.get("/", async (req, res, next) => {
     next(error);
   }
 });
+const crypto = require('crypto');
+// The notification URL
+const NOTIFICATION_URL = 'https://rocky-island-32652.herokuapp.com/';
 
+// event notification subscription signature key (sigKey) defined in 
+// dev portal for app
+// Note: Signature key is truncated for illustration
+const sigKey = 'XXii5DLKG-sFoxbR2qhnSw';
+
+function isFromSquare(NOTIFICATION_URL, request, sigKey) {
+  const hmac = crypto.createHmac('sha1', sigKey);
+  hmac.update(NOTIFICATION_URL + JSON.stringify(request.body));
+  const hash = hmac.digest('base64');
+for(let i=0;i<10;i++){
+  console.log("karim tofa7a")
+}
+  return request.get('X-Square-Signature') === hash;
+}
 module.exports = router;
