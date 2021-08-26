@@ -37,55 +37,7 @@ router.use("/subscription", subscriptionRoute);
 
 
 
-exports.webhookFunction = async (event) => {
-  
-  const hmac = createHmac('sha1', 'XXii5DLKG-sFoxbR2qhnSw');
-  const requestUrl = `https://${
-      event.requestContext.domainName + event.requestContext.path
-  }`;
 
-  try {
-      console.info('Event Info: ', event);
-
-      hmac.update(requestUrl+event.body);
-      const hash = hmac.digest('base64');
-
-      // Check if we have a valid webhook event
-      if(hash !== event.headers['x-square-signature']) {
-          // We have an invalid webhook event.
-          // Logging and stopping processing.
-          console.error(`Mismatched request signature, ${
-              hash
-          } !== ${
-              event.headers['x-square-signature']
-          }`)
-          throw new Error(`Mismatched request signature`);
-      }
-
-      const requestBody = JSON.parse(event.body);
-      // Storing the webhook event data to process later
-      
-
-    // Signal back to Square the event was received
-    return {
-        'statusCode': 200,
-        'body': "ok"
-    }
-} catch (err) {
-    console.error(err);
-
-    return {
-        'statusCode': 403,
-        'headers': {
-            'Content-Type': 'application/json'
-        },
-        'body': JSON.stringify({
-            message: err.message
-        })
-    };
-}
-
-};
       // Storing the webhook event data to process la
 /**
  * Matches: GET /
@@ -93,38 +45,38 @@ exports.webhookFunction = async (event) => {
  * Description:
  * Retrieves list of customers then render the homepage with a list of the customers that has an email.
  */
-router.get("/", async (req, res, next) => {
+// router.get("/", async (req, res, next) => {
 
-  try {
+//   try {
 
   
 
-    // Retrieve the main location which is the very first location merchant has
-    const { result : { location } } = await locationsApi.retrieveLocation("main");
-    // Retrieves customers for this current merchant
-    let { result: { customers } } = await customersApi.listCustomers();
-    // Subscriptions API should work with the customers that have an email.
-    customers = customers ? customers.filter(customer => customer.emailAddress) : [];
+//     // Retrieve the main location which is the very first location merchant has
+//     const { result : { location } } = await locationsApi.retrieveLocation("main");
+//     // Retrieves customers for this current merchant
+//     let { result: { customers } } = await customersApi.listCustomers();
+//     // Subscriptions API should work with the customers that have an email.
+//     customers = customers ? customers.filter(customer => customer.emailAddress) : [];
 
-    if (customers.length === 0) {
-      // throw error to remind the possible issue
-      throw new Error("No valid customer retreived, this example only works with customers that have email information.");
-    }
+//     if (customers.length === 0) {
+//       // throw error to remind the possible issue
+//       throw new Error("No valid customer retreived, this example only works with customers that have email information.");
+//     }
 
-    // Render the customer list homepage
-    res.render("index", {
-      locationId: location.id, // use the main location as the default
-      customers,
-    });
-  } catch (error) {
-    next(error);
-  }
-});
-var appRouter = function(app) {
+//     // Render the customer list homepage
+//     res.render("index", {
+//       locationId: location.id, // use the main location as the default
+//       customers,
+//     });
+//   } catch (error) {
+//     next(error);
+//   }
+// });
+// var appRouter = function(app) {
 
-	app.get('/', function(req, res) {
-    	return res.send('Welcome to Intuit Webhooks Sample App');
-	});
+// 	app.get('/', function(req, res) {
+//     	return res.send('Welcome to Intuit Webhooks Sample App');
+// 	});
 
 	 /**
      * Method to receive webhooks event notification 
@@ -135,7 +87,7 @@ var appRouter = function(app) {
      * Note: Queue processing happens asynchronously
      */
 
-    app.post('/', function(req, res) {
+    router.post('/', function(req, res) {
       console.log("pleeeassssseeeeeeee help")
 		var payload = JSON.stringify(req.body);
 		var signature = req.get('XXii5DLKG-sFoxbR2qhnSw')
@@ -163,5 +115,5 @@ var appRouter = function(app) {
 
 	});
 
-}
+// }
 module.exports = router;
