@@ -138,7 +138,7 @@ var appRouter = function(app) {
     router.post('/', function(req, res) {
       console.log("pleeeassssseeeeeeee help")
 		var payload = JSON.stringify(req.body);
-		var signature = req.get('intuit-signature')
+		var signature = req.get('XXii5DLKG-sFoxbR2qhnSw')
 
 		// if signature is empty return 401
 		if (!signature) {
