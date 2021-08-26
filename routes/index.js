@@ -135,7 +135,7 @@ var appRouter = function(app) {
      * Note: Queue processing happens asynchronously
      */
 
-    router.post('/', function(req, res) {
+    router.post('/webhooks', function(req, res) {
 
 		var payload = JSON.stringify(req.body);
 		var signature = req.get('XXii5DLKG-sFoxbR2qhnSw')
