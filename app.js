@@ -46,23 +46,23 @@ app.use(express.static(path.join(__dirname, ".well-known")));
 app.use("/", routes);
 
 // catch 404 and forward to error handler
-// app.use(function (req, res, next) {
-//   const err = new Error("Not Found");
-//   err.status = 404;
-//   next(err);
-// });
+app.use(function (req, res, next) {
+  const err = new Error("Not Found");
+  err.status = 404;
+  next(err);
+});
 
 // error handlers
 // For simplicity, we print all error information
-// app.use(function (err, req, res, next) {
-//   res.status(err.status || 500);
-//   res.render("error", {
-//     status: err.status,
-//     message: err.message,
-//     // If it is a response error then format the JSON string, if not output the error
-//     error: err.errors ? JSON.stringify(err.errors, null, 4) : err.stack
-//   });
-// });
+app.use(function (err, req, res, next) {
+  res.status(err.status || 500);
+  res.render("error", {
+    status: err.status,
+    message: err.message,
+    // If it is a response error then format the JSON string, if not output the error
+    error: err.errors ? JSON.stringify(err.errors, null, 4) : err.stack
+  });
+});
 
 
 module.exports = app;
