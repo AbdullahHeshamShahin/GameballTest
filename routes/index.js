@@ -154,7 +154,6 @@ var appRouter = function(app) {
 		if (util.isValidPayload(signature, payload)) {
 
 			// add to queue
-			queue.addToQueue(payload);
 			console.log('task added to queue ');
 		
 			return res.status(200).send('success');
