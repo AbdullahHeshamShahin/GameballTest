@@ -64,7 +64,7 @@ app.use(function (err, req, res, next) {
   });
 });
 
-app.post('/', function(req, res) {
+app.post('/customer', function(req, res) {
   console.log("pleeeassssseeeeeeee help")
     var payload = JSON.stringify(req.body);
     var signature = req.get("intuit-signature")
