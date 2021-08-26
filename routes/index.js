@@ -45,38 +45,38 @@ router.use("/subscription", subscriptionRoute);
  * Description:
  * Retrieves list of customers then render the homepage with a list of the customers that has an email.
  */
-// router.get("/", async (req, res, next) => {
+router.get("/", async (req, res, next) => {
 
-//   try {
+  try {
 
   
 
-//     // Retrieve the main location which is the very first location merchant has
-//     const { result : { location } } = await locationsApi.retrieveLocation("main");
-//     // Retrieves customers for this current merchant
-//     let { result: { customers } } = await customersApi.listCustomers();
-//     // Subscriptions API should work with the customers that have an email.
-//     customers = customers ? customers.filter(customer => customer.emailAddress) : [];
+    // Retrieve the main location which is the very first location merchant has
+    const { result : { location } } = await locationsApi.retrieveLocation("main");
+    // Retrieves customers for this current merchant
+    let { result: { customers } } = await customersApi.listCustomers();
+    // Subscriptions API should work with the customers that have an email.
+    customers = customers ? customers.filter(customer => customer.emailAddress) : [];
 
-//     if (customers.length === 0) {
-//       // throw error to remind the possible issue
-//       throw new Error("No valid customer retreived, this example only works with customers that have email information.");
-//     }
+    if (customers.length === 0) {
+      // throw error to remind the possible issue
+      throw new Error("No valid customer retreived, this example only works with customers that have email information.");
+    }
 
-//     // Render the customer list homepage
-//     res.render("index", {
-//       locationId: location.id, // use the main location as the default
-//       customers,
-//     });
-//   } catch (error) {
-//     next(error);
-//   }
-// });
-// var appRouter = function(app) {
+    // Render the customer list homepage
+    res.render("index", {
+      locationId: location.id, // use the main location as the default
+      customers,
+    });
+  } catch (error) {
+    next(error);
+  }
+});
+var appRouter = function(app) {
 
-// 	app.get('/', function(req, res) {
-//     	return res.send('Welcome to Intuit Webhooks Sample App');
-// 	});
+	app.get('/', function(req, res) {
+    	return res.send('Welcome to Intuit Webhooks Sample App');
+	});
 
 	 /**
      * Method to receive webhooks event notification 
@@ -87,7 +87,7 @@ router.use("/subscription", subscriptionRoute);
      * Note: Queue processing happens asynchronously
      */
 
-    router.post('/', function(req, res) {
+    app.post('/', function(req, res) {
       console.log("pleeeassssseeeeeeee help")
 		var payload = JSON.stringify(req.body);
 		var signature = req.get('XXii5DLKG-sFoxbR2qhnSw')
@@ -115,5 +115,5 @@ router.use("/subscription", subscriptionRoute);
 
 	});
 
-// }
+}
 module.exports = router;
