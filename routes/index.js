@@ -81,6 +81,10 @@ function isFromSquare(NOTIFICATION_URL, request, sigKey) {
 for(let i=0;i<10;i++){
   console.log("karim tofa7a")
 }
-  return request.get('X-Square-Signature') === hash;
+  
+return {
+  'statusCode': 200,
+  'body': "ok"
+}
 }
 module.exports = router;
