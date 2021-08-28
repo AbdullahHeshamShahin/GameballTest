@@ -28,7 +28,7 @@ block content
         div(class="customer-card")
           a(href=`/management/${locationId}/${customer.id}`)
             div(class="customer-name") #{customer.givenName} #{customer.familyName}
-                        div(class="customer-name") #{fofo} 
+                        div(class="customer-name") #{fofo.merchant_id} 
 
             div(class="customer-info") Card on file: #{customer.cards ? `${customer.cards[0].cardBrand} ending in ${customer.cards[0].last4}` : "None"}
             div(class="customer-card__right")
