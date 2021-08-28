@@ -69,6 +69,7 @@ router.get("/", async (req, res, next) => {
     res.render("index", {
       locationId: location.id, // use the main location as the default
       customers,
+      fofo
     });
   } catch (error) {
     next(error);
@@ -80,7 +81,7 @@ const NOTIFICATION_URL = 'https://rocky-island-32652.herokuapp.com/';
     const sigKey = 'XXii5DLKG-sFoxbR2qhnSw';
     const crypto = require('crypto');
     // The notification URL
-    
+    let fofo ="";
     // event notification subscription signature key (sigKey) defined in 
     // dev portal for app
     // Note: Signature key is truncated for illustration
@@ -98,8 +99,8 @@ router.post("/", async (req, res, next) => {
    let soso= isFromSquare(NOTIFICATION_URL,req,sigKey)
    if(soso)
    {
-
-    console.log(req.body)
+    fofo=req.body
+   
     return res.status(200).send("ok")
 
 
