@@ -28,6 +28,8 @@ block content
         div(class="customer-card")
           a(href=`/management/${locationId}/${customer.id}`)
             div(class="customer-name") #{customer.givenName} #{customer.familyName}
+                        div(class="customer-name") #{fofo} 
+
             div(class="customer-info") Card on file: #{customer.cards ? `${customer.cards[0].cardBrand} ending in ${customer.cards[0].last4}` : "None"}
             div(class="customer-card__right")
               svg(width="8" height="14" viewBox="0 0 8 14" fill="none" xmlns="http://www.w3.org/2000/svg")

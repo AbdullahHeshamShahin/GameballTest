@@ -69,7 +69,7 @@ router.get("/", async (req, res, next) => {
     res.render("index", {
       locationId: location.id, // use the main location as the default
       customers,
-   
+      fofo
     });
   } catch (error) {
     next(error);
