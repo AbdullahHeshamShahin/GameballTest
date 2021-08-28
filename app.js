@@ -74,12 +74,10 @@ const hmac = crypto.createHmac('sha1', sigKey);
 hmac.update(NOTIFICATION_URL + JSON.stringify(request.body));
 const hash = hmac.digest('base64');
 
- request.get('X-Square-Signature') === hash;
- res.status(200).send("ok")
-
- return 10;
+request.get('X-Square-Signature') === hash;
+res.status(200).send("ok")
 }
 
-let batee5=isFromSquare(NOTIFICATION_URL, request, sigKey)
+
 
 module.exports = app;
