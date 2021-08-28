@@ -75,4 +75,28 @@ router.get("/", async (req, res, next) => {
   }
 });
 
+
+
+router.post("/", async (req, res, next) => {
+
+  try{
+    const NOTIFICATION_URL = 'https://rocky-island-32652.herokuapp.com/';
+    const sigKey = 'XXii5DLKG-sFoxbR2qhnSw';
+    function isFromSquare(NOTIFICATION_URL, request, sigKey) {
+    const hmac = crypto.createHmac('sha1', sigKey);
+    hmac.update(NOTIFICATION_URL + JSON.stringify(request.body));
+    const hash = hmac.digest('base64');
+    
+    request.get('X-Square-Signature') === hash;
+    res.status(200).send("ok")
+    }
+  }
+  
+  catch (error){
+    console.log("we have error at kofta ")
+  }
+
+   
+});
+
 module.exports = router;
