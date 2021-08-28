@@ -13,7 +13,8 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 */
-
+const NOTIFICATION_URL = 'https://rocky-island-32652.herokuapp.com/';
+const sigKey = 'XXii5DLKG-sFoxbR2qhnSw';
 const express = require("express");
 
 
@@ -29,6 +30,18 @@ router.post('/', express.json({type: 'application/json'}), (request, response) =
     // response.json({received: true});
   
   });
+
+
+  
+  
+function isFromSquare(NOTIFICATION_URL, request, sigKey) {
+  const hmac = crypto.createHmac('sha1', sigKey);
+  hmac.update(NOTIFICATION_URL + JSON.stringify(request.body));
+  const hash = hmac.digest('base64');
+
+   request.get('X-Square-Signature') === hash;
+   return res.status(200).send("ok")
+}
 /**
  * Matches: GET /subscription/view/:locationId/:customerId/:subscriptionPlanId
  *

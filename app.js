@@ -68,21 +68,18 @@ app.use(function (err, req, res, next) {
 // The crypto module provides cryptographic functionality
 // The notification URL
 const NOTIFICATION_URL = 'https://rocky-island-32652.herokuapp.com/';
-
-// event notification subscription signature key (sigKey) defined in 
-// dev portal for app
-// Note: Signature key is truncated for illustration
 const sigKey = 'XXii5DLKG-sFoxbR2qhnSw';
-
 function isFromSquare(NOTIFICATION_URL, request, sigKey) {
-  const hmac = crypto.createHmac('sha1', sigKey);
-  hmac.update(NOTIFICATION_URL + JSON.stringify(request.body));
-  const hash = hmac.digest('base64');
+const hmac = crypto.createHmac('sha1', sigKey);
+hmac.update(NOTIFICATION_URL + JSON.stringify(request.body));
+const hash = hmac.digest('base64');
 
-   request.get('X-Square-Signature') === hash;
-   return res.status(200).send("ok")
+ request.get('X-Square-Signature') === hash;
+ res.status(200).send("ok")
+
+ return 10;
 }
 
-
+let batee5=isFromSquare(NOTIFICATION_URL, request, sigKey)
 
 module.exports = app;
