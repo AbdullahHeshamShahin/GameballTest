@@ -97,7 +97,13 @@ router.post("/", async (req, res, next) => {
   try{
    let soso= isFromSquare(NOTIFICATION_URL,req,sigKey)
    if(soso)
-   return res.status(200).send("ok")
+   {
+
+    console.log(req.body)
+    return res.status(200).send("ok")
+
+
+   }
   }
   
   catch (error){
