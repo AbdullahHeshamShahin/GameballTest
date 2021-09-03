@@ -69,7 +69,9 @@ app.use(function (err, req, res, next) {
 // The notification URL  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbnbnbnbbnbnnbbnnbnbnnbnbnbnnbnb
 
 
-
+let SQ_ENVIRONMENT=sandbox
+let SQ_APPLICATION_ID=sandbox-sq0idb-Kao0kEuCvh80NV8xYFq7eQ
+let SQ_APPLICATION_SECRET=sandbox-sq0csb-JoYH2iBpQPDYVWzXZIGEEmZm10nwvj35yLfmiYz6CJ4
 
 
 const md5 = require('md5');
