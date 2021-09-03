@@ -78,7 +78,7 @@ const { ApiError, Client, Environment } = require('square');
 app.use(cookieParser());
 app.set('view engine', 'ejs');
 
-const { PORT, SQ_ENVIRONMENT, SQ_APPLICATION_ID, SQ_APPLICATION_SECRET } = process.env;
+// const { PORT, SQ_ENVIRONMENT, SQ_APPLICATION_ID, SQ_APPLICATION_SECRET } = process.env;
 let basePath;
 let environment;
 if (SQ_ENVIRONMENT.toLowerCase() === "production") {
@@ -122,7 +122,7 @@ app.get("/request_token", (req, res) => {
   // Set the Auth_State cookie with a random md5 string to protect against cross-site request forgery.
   // Auth_State will expire in 300 seconds (5 mins) after the page is loaded.
   var state = md5(Date.now())
-  var url = basePath + `/oauth2/authorize?client_id=${process.env.SQ_APPLICATION_ID}&` + `response_type=code&` + `scope=${scopes.join('+')}` + `&state=` + state
+  var url = basePath + `/oauth2/authorize?client_id=${SQ_APPLICATION_ID}&` + `response_type=code&` + `scope=${scopes.join('+')}` + `&state=` + state
   content = `
     <link type="text/css" rel="stylesheet" href="style.css">
     <meta name="viewport" content="width=device-width">
@@ -181,8 +181,8 @@ app.get('/callback', async (req, res) => {
       let { result } = await oauthInstance.obtainToken({
         // Provide the code in a request to the Obtain Token endpoint
         code,
-        clientId: process.env.SQ_APPLICATION_ID,
-        clientSecret: process.env.SQ_APPLICATION_SECRET,
+        clientId: SQ_APPLICATION_ID,
+        clientSecret: SQ_APPLICATION_SECRET,
         grantType: 'authorization_code'
       });
 
