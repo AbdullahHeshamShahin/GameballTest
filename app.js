@@ -72,12 +72,12 @@ app.use(function (err, req, res, next) {
 
 
 
-const cookieParser = require('cookie-parser');
-const md5 = require('md5');
-const { ApiError, Client, Environment } = require('square');
-const app = express();
-app.use(cookieParser());
-app.set('view engine', 'ejs');
+// const cookieParser = require('cookie-parser');
+// const md5 = require('md5');
+// const { ApiError, Client, Environment } = require('square');
+// const app = express();
+// app.use(cookieParser());
+// app.set('view engine', 'ejs');
 
 
 
