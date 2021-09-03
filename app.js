@@ -72,7 +72,6 @@ app.use(function (err, req, res, next) {
 
 
 
-const cookieParser = require('cookie-parser');
 const md5 = require('md5');
 const { ApiError, Client, Environment } = require('square');
 app.use(cookieParser());
