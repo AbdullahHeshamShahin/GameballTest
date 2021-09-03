@@ -72,14 +72,51 @@ app.use(function (err, req, res, next) {
 
 
 
-// const cookieParser = require('cookie-parser');
-// const md5 = require('md5');
-// const { ApiError, Client, Environment } = require('square');
-// const app = express();
-// app.use(cookieParser());
-// app.set('view engine', 'ejs');
+const cookieParser = require('cookie-parser');
+const md5 = require('md5');
+const { ApiError, Client, Environment } = require('square');
+app.use(cookieParser());
+app.set('view engine', 'ejs');
+
+const { PORT, SQ_ENVIRONMENT, SQ_APPLICATION_ID, SQ_APPLICATION_SECRET } = process.env;
+let basePath;
+let environment;
+if (SQ_ENVIRONMENT.toLowerCase() === "production") {
+  basePath = `https://connect.squareup.com`;
+  environment = Environment.Production;
+} else if (SQ_ENVIRONMENT.toLowerCase() === "sandbox") {
+  basePath = `https://connect.squareupsandbox.com`;
+  environment = Environment.Sandbox;
+} else {
+  console.warn('Unsupported value for SQ_ENVIRONMENT in .env file.');
+  process.exit(1);
+}
+
+// Check if example secrets were set
+if (!SQ_APPLICATION_ID || !SQ_APPLICATION_SECRET) {
+  console.warn('\x1b[33m%s\x1b[0m', 'Missing secrets! Configure set values for SQ_APPLICATION_ID and SQ_APPLICATION_SECRET in a .env file.');
+  process.exit(1);
+}
 
 
+
+const messages = require('./messages');
+// Configure Square defcault client
+const squareClient = new Client({
+  environment: environment
+});
+
+// Configure Square OAuth API instance
+const oauthInstance = squareClient.oAuthApi;
+
+// INCLUDE PERMISSIONS YOU WANT YOUR SELLER TO GRANT YOUR APPLICATION
+const scopes = [
+  "ITEMS_READ",
+  "MERCHANT_PROFILE_READ",
+  "PAYMENTS_WRITE_ADDITIONAL_RECIPIENTS",
+  "PAYMENTS_WRITE"
+
+];
 
 app.get("/request_token", (req, res) => {
   // Set the Auth_State cookie with a random md5 string to protect against cross-site request forgery.
