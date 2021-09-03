@@ -66,12 +66,7 @@ app.use(function (err, req, res, next) {
 });
 
 // The crypto module provides cryptographic functionality
-// The notification URL
-
-
-
-
-
+// The notification URL  bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbnbnbnbbnbnnbbnnbnbnnbnbnbnnbnb
 
 
 
@@ -110,7 +105,6 @@ This sample requires the following dependencies:
 */
 
 const dotenv = require('dotenv').config(); // Loads .env file
-const express = require('express');
 const cookieParser = require('cookie-parser');
 const md5 = require('md5');
 const { ApiError, Client, Environment } = require('square');
@@ -274,6 +268,11 @@ app.get('/callback', async (req, res) => {
 app.listen(port, () => {
   console.log(`Listening to requests on http://localhost:${port}`);
 });
+
+
+
+
+
 
 
 
